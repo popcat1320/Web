@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>รักนะ</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(to top right, #ffdde1, #ee9ca7);
+      overflow: hidden;
+      font-family: 'Prompt', sans-serif;
+      position: relative;
+    }
+
+    .float {
+      position: absolute;
+      animation: floatUp 3s linear forwards;
+      opacity: 0;
+      font-size: 2.5rem;
+      user-select: none;
+    }
+
+    @keyframes floatUp {
+      0% {
+        bottom: 0%;
+        opacity: 0;
+        transform: translateX(0);
+      }
+      10% {
+        opacity: 1;
+      }
+      100% {
+        bottom: 100%;
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <script>
+    const texts = ["รักนะ", "❤️", "รักมาก"];
+    
+    function createFloatingText() {
+      const text = texts[Math.floor(Math.random() * texts.length)];
+      const div = document.createElement("div");
+      div.className = "float";
+      div.textContent = text;
+      
+      // สุ่มตำแหน่งแนวนอน
+      div.style.left = Math.random() * 90 + "%";
+      // สุ่มสีเล็กน้อย
+      div.style.color = `hsl(${Math.random() * 360}, 70%, 60%)`;
+
+      document.body.appendChild(div);
+
+      // ลบหลังแอนิเมชันจบ
+      setTimeout(() => {
+        div.remove();
+      }, 3000);
+    }
+
+    // สร้างข้อความรัว ๆ ทุก 300ms
+    setInterval(createFloatingText, 300);
+  </script>
+
+</body>
+  </html>
