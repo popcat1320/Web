@@ -1,71 +1,82 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <title>รักนะ</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>รักนะอ้วน</title>
   <style>
-    body {
+    * {
       margin: 0;
       padding: 0;
-      height: 100vh;
-      background: linear-gradient(to top right, #ffdde1, #ee9ca7);
-      overflow: hidden;
       font-family: 'Prompt', sans-serif;
+      box-sizing: border-box;
+    }
+    body, html {
+      height: 100%;
+      overflow: hidden;
+    }
+    video {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .text-container {
       position: relative;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
     }
-
-    .float {
-      position: absolute;
-      animation: floatUp 3s linear forwards;
+    .text {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #fff;
       opacity: 0;
-      font-size: 2.5rem;
-      user-select: none;
+      transform: translateX(-100%);
+      animation: slide-in-left 2s forwards;
+    }
+    .text:nth-child(2) {
+      animation: slide-in-right 2s 2s forwards;
+      transform: translateX(100%);
+    }
+    .text:nth-child(3) {
+      animation: slide-in-left 2s 4s forwards;
+      transform: translateX(-100%);
     }
 
-    @keyframes floatUp {
-      0% {
-        bottom: 0%;
-        opacity: 0;
+    @keyframes slide-in-left {
+      to {
+        opacity: 1;
         transform: translateX(0);
       }
-      10% {
+    }
+    @keyframes slide-in-right {
+      to {
         opacity: 1;
-      }
-      100% {
-        bottom: 100%;
-        opacity: 0;
-        transform: translateX(-20px);
+        transform: translateX(0);
       }
     }
   </style>
 </head>
 <body>
 
-  <script>
-    const texts = ["รักนะ", "❤️", "รักมาก"];
-    
-    function createFloatingText() {
-      const text = texts[Math.floor(Math.random() * texts.length)];
-      const div = document.createElement("div");
-      div.className = "float";
-      div.textContent = text;
-      
-      // สุ่มตำแหน่งแนวนอน
-      div.style.left = Math.random() * 90 + "%";
-      // สุ่มสีเล็กน้อย
-      div.style.color = `hsl(${Math.random() * 360}, 70%, 60%)`;
+  <video autoplay muted loop>
+    <source src="096dd79c1722364018dc54ca839a3a0f.mp4" type="video/mp4">
+    วิดีโอของคุณไม่รองรับ
+  </video>
 
-      document.body.appendChild(div);
-
-      // ลบหลังแอนิเมชันจบ
-      setTimeout(() => {
-        div.remove();
-      }, 3000);
-    }
-
-    // สร้างข้อความรัว ๆ ทุก 300ms
-    setInterval(createFloatingText, 300);
-  </script>
+  <div class="text-container">
+    <div class="text">รักนะอ้วน</div>
+    <div class="text">รักที่สุด</div>
+    <div class="text">หัว</div>
+  </div>
 
 </body>
-  </html>
+</html>
