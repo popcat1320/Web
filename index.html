@@ -1,82 +1,79 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>รักนะอ้วน</title>
+  <meta charset="UTF-8" />
+  <title>รักนะอ้วน 💓</title>
   <style>
-    * {
+    body {
       margin: 0;
-      padding: 0;
+      background-color: pink;
       font-family: 'Prompt', sans-serif;
-      box-sizing: border-box;
-    }
-    body, html {
-      height: 100%;
       overflow: hidden;
     }
-    video {
-      position: fixed;
-      right: 0;
-      bottom: 0;
-      min-width: 100%;
-      min-height: 100%;
-      object-fit: cover;
-      z-index: -1;
-    }
-    .text-container {
+
+    .container {
       position: relative;
-      height: 100%;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      text-align: center;
-    }
-    .text {
-      font-size: 3rem;
-      font-weight: bold;
-      color: #fff;
-      opacity: 0;
-      transform: translateX(-100%);
-      animation: slide-in-left 2s forwards;
-    }
-    .text:nth-child(2) {
-      animation: slide-in-right 2s 2s forwards;
-      transform: translateX(100%);
-    }
-    .text:nth-child(3) {
-      animation: slide-in-left 2s 4s forwards;
-      transform: translateX(-100%);
+      width: 100vw;
+      height: 100vh;
     }
 
-    @keyframes slide-in-left {
+    .text1, .text2, .heart {
+      position: absolute;
+      font-size: 3rem;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .text1 {
+      top: 40%;
+      left: -50%;
+      animation: slideInLeft 3s forwards;
+      color: #ff4d6d;
+    }
+
+    .text2 {
+      top: 50%;
+      right: -50%;
+      animation: slideInRight 3s forwards;
+      color: #ff4d6d;
+    }
+
+    .heart {
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      font-size: 4rem;
+      animation: showHeart 1s 3s forwards;
+    }
+
+    @keyframes slideInLeft {
       to {
-        opacity: 1;
-        transform: translateX(0);
+        left: 50%;
+        transform: translateX(-100%);
       }
     }
-    @keyframes slide-in-right {
+
+    @keyframes slideInRight {
+      to {
+        right: 50%;
+        transform: translateX(100%);
+      }
+    }
+
+    @keyframes showHeart {
       to {
         opacity: 1;
-        transform: translateX(0);
+        transform: translate(-50%, -50%) scale(1.2);
       }
     }
   </style>
 </head>
 <body>
-
-  <video autoplay loop  >
-    <source src="096dd79c1722364018dc54ca839a3a0f.mp4" type="video/mp4">
-    วิดีโอของคุณไม่รองรับ
-  </video>
-
-  <div class="text-container">
-    <div class="text">รักนะอ้วน</div>
-    <div class="text">รักที่สุด</div>
-    <div class="text">♥️</div>
+  <div class="container">
+    <div class="text1">รักนะอ้วน</div>
+    <div class="text2">รักงับ อ้วน</div>
+    <div class="heart">💓</div>
   </div>
-
 </body>
 </html>
