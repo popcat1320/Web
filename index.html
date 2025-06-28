@@ -24,6 +24,7 @@
       color: #ff4d6d;
       white-space: nowrap;
       opacity: 0;
+      animation: moveToCenter 4s forwards;
     }
 
     .heart {
@@ -34,44 +35,68 @@
       transform: translate(-50%, -50%) scale(0);
       opacity: 0;
       transition: all 1s ease-out;
+      filter: drop-shadow(0 0 10px white);
+      animation: none;
     }
 
     @keyframes moveToCenter {
-      to {
+      0% { opacity: 0; }
+      80% {
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%) rotate(0deg);
         opacity: 1;
+      }
+      100% {
+        transform: translate(-50%, -50%) rotate(360deg);
       }
     }
 
+    .hide {
+      display: none;
+    }
+
     .explode {
-      transform: translate(-50%, -50%) scale(1.5);
+      transform: translate(-50%, -50%) scale(2);
       opacity: 1;
+      animation: sparkle 1s infinite alternate;
+    }
+
+    @keyframes sparkle {
+      from {
+        filter: drop-shadow(0 0 10px white);
+      }
+      to {
+        filter: drop-shadow(0 0 20px yellow) brightness(1.2);
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="word" style="top:10%; left:-20%; animation: moveToCenter 2s forwards 0s;">รักนะ</div>
-    <div class="word" style="top:20%; left:120%; animation: moveToCenter 2s forwards 0.2s;">รักนะอ้วน</div>
-    <div class="word" style="top:30%; left:-20%; animation: moveToCenter 2s forwards 0.4s;">รักนะงับ</div>
-    <div class="word" style="top:40%; left:120%; animation: moveToCenter 2s forwards 0.6s;">รักนะงับ</div>
-    <div class="word" style="top:50%; left:-20%; animation: moveToCenter 2s forwards 0.8s;">รักนะงับ</div>
-    <div class="word" style="top:60%; left:120%; animation: moveToCenter 2s forwards 1s;">รักนะงับอ้วน</div>
-    <div class="word" style="top:70%; left:-20%; animation: moveToCenter 2s forwards 1.2s;">รักนะงับ</div>
-    <div class="word" style="top:80%; left:120%; animation: moveToCenter 2s forwards 1.4s;">รักนะ</div>
-    <div class="word" style="top:90%; left:-20%; animation: moveToCenter 2s forwards 1.6s;">รักมากๆ</div>
-    <div class="word" style="top:100%; left:120%; animation: moveToCenter 2s forwards 1.8s;">นะจ๊ะ</div>
-    
+    <div class="word" style="top:10%; left:-20%; animation-delay: 0s;">รักนะ</div>
+    <div class="word" style="top:20%; left:120%; animation-delay: 0.3s;">รักนะอ้วน</div>
+    <div class="word" style="top:30%; left:-20%; animation-delay: 0.6s;">รักนะงับ</div>
+    <div class="word" style="top:40%; left:120%; animation-delay: 0.9s;">รักนะงับ</div>
+    <div class="word" style="top:50%; left:-20%; animation-delay: 1.2s;">รักนะงับ</div>
+    <div class="word" style="top:60%; left:120%; animation-delay: 1.5s;">รักนะงับอ้วน</div>
+    <div class="word" style="top:70%; left:-20%; animation-delay: 1.8s;">รักนะงับ</div>
+    <div class="word" style="top:80%; left:120%; animation-delay: 2.1s;">รักนะ</div>
+    <div class="word" style="top:90%; left:-20%; animation-delay: 2.4s;">รักมากๆ</div>
+    <div class="word" style="top:100%; left:120%; animation-delay: 2.7s;">นะจ๊ะ</div>
+
     <div class="heart" id="heart">💖</div>
+    <audio id="popSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_1ba00bb6b4.mp3" preload="auto"></audio>
   </div>
 
   <script>
     setTimeout(() => {
-      document.getElementById("heart").classList.add("explode");
-    }, 4000); // หลังจากคำทั้งหมดรวมกันแล้ว 2s + 1.8s = ~3.8s
+      document.querySelectorAll('.word').forEach(word => word.classList.add('hide'));
+      const heart = document.getElementById("heart");
+      const sound = document.getElementById("popSound");
+      heart.classList.add("explode");
+      sound.play();
+    }, 6000); // รอจนคำหมุนเสร็จ แล้วค่อยแสดงหัวใจ
   </script>
-  
 </body>
 </html>
