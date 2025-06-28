@@ -17,63 +17,60 @@
       height: 100vh;
     }
 
-    .text1, .text2, .heart {
+    .word {
       position: absolute;
-      font-size: 3rem;
+      font-size: 2rem;
       font-weight: bold;
+      color: #ff4d6d;
       white-space: nowrap;
-    }
-
-    .text1 {
-      top: 40%;
-      left: -50%;
-      animation: slideInLeft 3s forwards;
-      color: #ff4d6d;
-    }
-
-    .text2 {
-      top: 50%;
-      right: -50%;
-      animation: slideInRight 3s forwards;
-      color: #ff4d6d;
+      opacity: 0;
     }
 
     .heart {
-      top: 45%;
+      position: absolute;
+      top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      font-size: 6rem;
+      transform: translate(-50%, -50%) scale(0);
       opacity: 0;
-      font-size: 4rem;
-      animation: showHeart 1s 3s forwards;
+      transition: all 1s ease-out;
     }
 
-    @keyframes slideInLeft {
+    @keyframes moveToCenter {
       to {
+        top: 50%;
         left: 50%;
-        transform: translateX(-100%);
-      }
-    }
-
-    @keyframes slideInRight {
-      to {
-        right: 50%;
-        transform: translateX(100%);
-      }
-    }
-
-    @keyframes showHeart {
-      to {
+        transform: translate(-50%, -50%);
         opacity: 1;
-        transform: translate(-50%, -50%) scale(1.2);
       }
+    }
+
+    .explode {
+      transform: translate(-50%, -50%) scale(1.5);
+      opacity: 1;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="text1">รักนะอ้วน</div>
-    <div class="text2">รักงับ อ้วน</div>
-    <div class="heart">💓</div>
+    <div class="word" style="top:10%; left:-20%; animation: moveToCenter 2s forwards 0s;">รักนะ</div>
+    <div class="word" style="top:20%; left:120%; animation: moveToCenter 2s forwards 0.2s;">รักนะอ้วน</div>
+    <div class="word" style="top:30%; left:-20%; animation: moveToCenter 2s forwards 0.4s;">รักนะงับ</div>
+    <div class="word" style="top:40%; left:120%; animation: moveToCenter 2s forwards 0.6s;">รักนะงับ</div>
+    <div class="word" style="top:50%; left:-20%; animation: moveToCenter 2s forwards 0.8s;">รักนะงับ</div>
+    <div class="word" style="top:60%; left:120%; animation: moveToCenter 2s forwards 1s;">รักนะงับอ้วน</div>
+    <div class="word" style="top:70%; left:-20%; animation: moveToCenter 2s forwards 1.2s;">รักนะงับ</div>
+    <div class="word" style="top:80%; left:120%; animation: moveToCenter 2s forwards 1.4s;">รักนะ</div>
+    <div class="word" style="top:90%; left:-20%; animation: moveToCenter 2s forwards 1.6s;">รักมากๆ</div>
+    <div class="word" style="top:100%; left:120%; animation: moveToCenter 2s forwards 1.8s;">นะจ๊ะ</div>
+    
+    <div class="heart" id="heart">💖</div>
   </div>
+
+  <script>
+    setTimeout(() => {
+      document.getElementById("heart").classList.add("explode");
+    }, 4000); // หลังจากคำทั้งหมดรวมกันแล้ว 2s + 1.8s = ~3.8s
+  </script>
 </body>
 </html>
