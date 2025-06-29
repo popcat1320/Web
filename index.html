@@ -1,54 +1,59 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>หน้าแรก</title>
   <style>
     body {
-      background: linear-gradient(to right, #ffdde1, #ee9ca7);
-      font-family: sans-serif;
-      text-align: center;
-      padding-top: 100px;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(120deg, #ff99cc, #ffe6f0);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     h1 {
-      color: #ff4081;
+      font-size: 40px;
+      color: #fff;
+      margin-bottom: 40px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
     }
 
-    button {
+    .button {
       padding: 15px 30px;
+      margin: 10px;
       font-size: 18px;
       border: none;
       border-radius: 12px;
-      background-color: #ff4081;
-      color: white;
+      background-color: white;
+      color: #ff3399;
+      font-weight: bold;
       cursor: pointer;
-      transition: transform 0.2s ease;
+      transition: transform 0.2s ease, background-color 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
-    button:hover {
-      background-color: #e91e63;
+    .button:hover {
       transform: scale(1.05);
+      background-color: #ffccdd;
     }
   </style>
 </head>
 <body>
 
-  <h1>💖 ยินดีต้อนรับ 💖</h1>
-
-  <!-- ปุ่มเล่นเสียง -->
-  <button onclick="document.getElementById('myAudio').play()">▶️ เล่นเพลง</button>
-
-  <!-- ปุ่มหยุดเสียง -->
-  <button onclick="document.getElementById('myAudio').pause()">⏸️ หยุดเพลง</button>
-
-  <!-- เสียง -->
-  <audio id="myAudio" src="adio.mp3"></audio>
-
-  <br><br>
-  <a href="login.html">
-    <button>เข้าสู่ระบบ</button>
-  </a>
+  <h1>🌸 ยินดีต้อนรับ 🌸</h1>
+  <button class="button" onclick="location.href='register.html'">สมัครสมาชิก</button>
+  <button class="button" onclick="location.href='login.html'">เข้าสู่ระบบ</button>
 
 </body>
 </html>
