@@ -126,8 +126,10 @@
   <button onclick="toggleSound()">🔊 เล่น/หยุดเสียง</button>
   <button onclick="replayMusic()">🔁 รีเพลย์เพลง1</button>
 
-  <audio id="adio" src="adio.mp3"></audio>
-
+<audio controls>
+  <source src="sound.mp3" type="audio/mp3">
+  เบราว์เซอร์ไม่รองรับ
+</audio>
   <!-- คลื่นเสียง -->
   <div class="waves hidden" id="waveBars">
     <div class="bar"></div>
