@@ -15,6 +15,7 @@
       justify-content: center;
       height: 100vh;
       overflow: hidden;
+      transition: transform 0.05s;
     }
 
     h1 {
@@ -26,8 +27,8 @@
       background: #ff3399;
       color: white;
       border: none;
-      padding: 12px 25px;
-      font-size: 18px;
+      padding: 10px 20px;
+      font-size: 16px;
       border-radius: 12px;
       cursor: pointer;
       transition: background 0.3s;
@@ -48,8 +49,8 @@
     }
 
     .bar {
-      width: 8px;
-      height: 20px;
+      width: 6px;
+      height: 18px;
       background: #ff3399;
       border-radius: 10px;
       animation: bounce 1s infinite ease-in-out;
@@ -67,18 +68,54 @@
 
     .hidden { display: none; }
 
-    /* ป๊อปอัปวิดีโอ */
     .popup {
       position: absolute;
       top: 20px;
       left: 20px;
       background: white;
       border: 2px solid #ff3399;
-      padding: 10px;
-      border-radius: 12px;
+      padding: 8px;
+      border-radius: 10px;
+      width: 200px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
       z-index: 5;
+      animation: pulse 1.5s infinite ease-in-out;
       cursor: move;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    video {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    /* 🎇 ดาวระยิบระยับ */
+    .star {
+      position: fixed;
+      top: -20px;
+      width: 10px;
+      height: 10px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 0 5px 2px white;
+      opacity: 0.8;
+      animation: fall 5s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(110vh) scale(0.5);
+        opacity: 0;
+      }
     }
   </style>
 </head>
@@ -87,9 +124,9 @@
   <h1>🎵 แดชบอร์ดเพลง</h1>
 
   <button onclick="toggleSound()">🔊 เล่น/หยุดเสียง</button>
+  <button onclick="replayMusic()">🔁 รีเพลย์เพลง</button>
 
-  <!-- เสียง -->
-  <audio id="audio" src="adio.mp3"></audio>
+  <audio id="adio" src="adio.mp3"></audio>
 
   <!-- คลื่นเสียง -->
   <div class="waves hidden" id="waveBars">
@@ -102,49 +139,58 @@
 
   <!-- ป๊อปอัปวิดีโอ -->
   <div id="popupVideo" class="popup hidden">
-    <video id="video" width="300" controls>
+    <video id="video" controls>
       <source src="video.mp4" type="video/mp4">
-      เบราว์เซอร์ของคุณไม่รองรับวิดีโอ
+      ไม่รองรับวิดีโอ
     </video>
-    <br />
-    <button onclick="replayVideo()">🔁 รีเพลย์วิดีโอ</button>
   </div>
+
+  <!-- ดาว -->
+  <div id="starsContainer"></div>
 
   <script>
     const audio = document.getElementById('audio');
-    const waves = document.getElementById('waveBars');
-    const popup = document.getElementById('popupVideo');
     const video = document.getElementById('video');
+    const popup = document.getElementById('popupVideo');
+    const waves = document.getElementById('waveBars');
+    const starsContainer = document.getElementById('starsContainer');
+    let shakeInterval;
 
     function toggleSound() {
       if (audio.paused) {
         audio.play();
-        waves.classList.remove('hidden');
-        popup.classList.remove('hidden');
         video.play();
+        popup.classList.remove('hidden');
+        waves.classList.remove('hidden');
+        startShake();
       } else {
         audio.pause();
-        waves.classList.add('hidden');
-        popup.classList.add('hidden');
         video.pause();
+        popup.classList.add('hidden');
+        waves.classList.add('hidden');
+        stopShake();
       }
     }
 
-    function replayVideo() {
+    function replayMusic() {
+      audio.currentTime = 0;
       video.currentTime = 0;
+      audio.play();
       video.play();
+      popup.classList.remove('hidden');
+      waves.classList.remove('hidden');
+      startShake();
     }
 
-    // เพลงจบ → ซ่อนคลื่นและวิดีโอ
     audio.addEventListener('ended', () => {
-      waves.classList.add('hidden');
       popup.classList.add('hidden');
+      waves.classList.add('hidden');
       video.pause();
+      stopShake();
     });
 
-    // ให้ลากป๊อปอัปวิดีโอได้
-    let isDragging = false;
-    let offsetX, offsetY;
+    // Drag popup
+    let isDragging = false, offsetX = 0, offsetY = 0;
 
     popup.addEventListener('mousedown', (e) => {
       isDragging = true;
@@ -162,7 +208,33 @@
     document.addEventListener('mouseup', () => {
       isDragging = false;
     });
+
+    // 🎇 สร้างดาวแบบสุ่ม
+    setInterval(() => {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = `${Math.random() * 100}vw`;
+      star.style.animationDuration = `${3 + Math.random() * 3}s`;
+      starsContainer.appendChild(star);
+      setTimeout(() => starsContainer.removeChild(star), 6000);
+    }, 300);
+
+    // 📳 เขย่าหน้าจอ
+    function startShake() {
+      if (shakeInterval) return;
+      shakeInterval = setInterval(() => {
+        const x = (Math.random() - 0.5) * 8;
+        const y = (Math.random() - 0.5) * 8;
+        document.body.style.transform = `translate(${x}px, ${y}px)`;
+      }, 50);
+    }
+
+    function stopShake() {
+      clearInterval(shakeInterval);
+      shakeInterval = null;
+      document.body.style.transform = 'translate(0, 0)';
+    }
   </script>
 
 </body>
-  </html>
+</html>
