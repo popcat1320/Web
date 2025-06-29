@@ -123,7 +123,22 @@
 
   <h1>🎵 แดชบอร์ดเพลง</h1>
 
-  <button onclick="toggleSound()">🔊 เล่น/หยุดเสียง</button>
+  <audio id="audio" src="adio.mp3"></audio>
+
+<button onclick="toggleSound()">🔊 เล่น/หยุดเสียง</button>
+
+<script>
+  const audio = document.getElementById('audio');
+
+  function toggleSound() {
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  }
+</script>
+  
   <button onclick="replayMusic()">🔁 รีเพลย์เพลง1</button>
 
 <audio controls>
