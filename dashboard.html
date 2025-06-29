@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>แดชบอร์ดเสียง</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(to right, #ffe6f0, #fff0f6);
+      font-family: 'Prompt', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    h1 {
+      color: #ff3399;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background: #ff3399;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.3s;
+      z-index: 2;
+    }
+
+    button:hover {
+      background: #cc0077;
+    }
+
+    .waves {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+    }
+
+    .bar {
+      width: 8px;
+      height: 20px;
+      background: #ff3399;
+      border-radius: 10px;
+      animation: bounce 1s infinite ease-in-out;
+    }
+
+    .bar:nth-child(2) { animation-delay: 0.1s; }
+    .bar:nth-child(3) { animation-delay: 0.2s; }
+    .bar:nth-child(4) { animation-delay: 0.3s; }
+    .bar:nth-child(5) { animation-delay: 0.4s; }
+
+    @keyframes bounce {
+      0%, 100% { transform: scaleY(0.3); opacity: 0.5; }
+      50% { transform: scaleY(1); opacity: 1; }
+    }
+
+    .hidden { display: none; }
+
+    /* ป๊อปอัปวิดีโอ */
+    .popup {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: white;
+      border: 2px solid #ff3399;
+      padding: 10px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      z-index: 5;
+      cursor: move;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎵 แดชบอร์ดเพลง</h1>
+
+  <button onclick="toggleSound()">🔊 เล่น/หยุดเสียง</button>
+
+  <!-- เสียง -->
+  <audio id="audio" src="adio.mp3"></audio>
+
+  <!-- คลื่นเสียง -->
+  <div class="waves hidden" id="waveBars">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </div>
+
+  <!-- ป๊อปอัปวิดีโอ -->
+  <div id="popupVideo" class="popup hidden">
+    <video id="video" width="300" controls>
+      <source src="video.mp4" type="video/mp4">
+      เบราว์เซอร์ของคุณไม่รองรับวิดีโอ
+    </video>
+    <br />
+    <button onclick="replayVideo()">🔁 รีเพลย์วิดีโอ</button>
+  </div>
+
+  <script>
+    const audio = document.getElementById('audio');
+    const waves = document.getElementById('waveBars');
+    const popup = document.getElementById('popupVideo');
+    const video = document.getElementById('video');
+
+    function toggleSound() {
+      if (audio.paused) {
+        audio.play();
+        waves.classList.remove('hidden');
+        popup.classList.remove('hidden');
+        video.play();
+      } else {
+        audio.pause();
+        waves.classList.add('hidden');
+        popup.classList.add('hidden');
+        video.pause();
+      }
+    }
+
+    function replayVideo() {
+      video.currentTime = 0;
+      video.play();
+    }
+
+    // เพลงจบ → ซ่อนคลื่นและวิดีโอ
+    audio.addEventListener('ended', () => {
+      waves.classList.add('hidden');
+      popup.classList.add('hidden');
+      video.pause();
+    });
+
+    // ให้ลากป๊อปอัปวิดีโอได้
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    popup.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      offsetX = e.offsetX;
+      offsetY = e.offsetY;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (isDragging) {
+        popup.style.left = `${e.pageX - offsetX}px`;
+        popup.style.top = `${e.pageY - offsetY}px`;
+      }
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+  </script>
+
+</body>
+  </html>
