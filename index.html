@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>หน้าแรก</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #ffdde1, #ee9ca7);
+      font-family: sans-serif;
+      text-align: center;
+      padding-top: 100px;
+    }
+
+    h1 {
+      color: #ff4081;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 12px;
+      background-color: #ff4081;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #e91e63;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>💖 ยินดีต้อนรับ 💖</h1>
+
+  <!-- ปุ่มเล่นเสียง -->
+  <button onclick="document.getElementById('myAudio').play()">▶️ เล่นเพลง</button>
+
+  <!-- ปุ่มหยุดเสียง -->
+  <button onclick="document.getElementById('myAudio').pause()">⏸️ หยุดเพลง</button>
+
+  <!-- เสียง -->
+  <audio id="myAudio" src="adio.mp3"></audio>
+
+  <br><br>
+  <a href="login.html">
+    <button>เข้าสู่ระบบ</button>
+  </a>
+
+</body>
+</html>
